@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Authentication Demo</title><style>
+body{font:16px Arial;background:#eef2f8;padding:35px}.card{max-width:460px;margin:auto;background:white;padding:25px;border-radius:12px}
+input{width:100%;box-sizing:border-box;padding:12px;margin:8px 0;border:1px solid #bdc7d4;border-radius:6px}
+button{padding:11px 16px;background:#245bb1;color:white;border:0;border-radius:6px;cursor:pointer}
+#dashboard{display:none;background:#e9f8ef;padding:15px;margin-top:15px;border-radius:8px}#message{color:#b22;white-space:pre-wrap}
+</style></head><body><div class="card"><h1>JWT Login Demo</h1><p>Use username <b>student</b> and password <b>12345</b>.</p>
+<form id="login"><input id="user" placeholder="Username" required><input id="pass" type="password" placeholder="Password" required><button>Login</button></form>
+<p id="message"></p><div id="dashboard"><h2>Welcome!</h2><p>Login successful. Demo access token:</p><code id="token"></code><p><button id="logout">Logout</button></p></div></div>
+<script>
+const enc=s=>btoa(unescape(encodeURIComponent(s))).replace(/=/g,'').replace(/\\+/g,'-').replace(/\\//g,'_');
+document.getElementById('login').onsubmit=e=>{e.preventDefault();let u=document.getElementById('user').value,p=document.getElementById('pass').value;if(u==='student'&&p==='12345'){let header=enc(JSON.stringify({alg:'none',typ:'JWT'})),payload=enc(JSON.stringify({sub:u,role:'student',demo:true})),token=header+'.'+payload+'.';document.getElementById('token').textContent=token;document.getElementById('dashboard').style.display='block';document.getElementById('message').textContent='';}else{document.getElementById('message').textContent='Invalid username or password.';document.getElementById('dashboard').style.display='none';}};
+document.getElementById('logout').onclick=()=>{document.getElementById('dashboard').style.display='none';document.getElementById('login').reset();document.getElementById('message').textContent='Logged out successfully.';};
+</script></body></html>

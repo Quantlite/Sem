@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Full Stack App Demo</title><style>
+body{font:16px Arial;background:#eef2f7;padding:30px}.app{max-width:650px;margin:auto;background:white;padding:25px;border-radius:12px}
+form{display:flex;gap:8px}input{flex:1;padding:11px;border:1px solid #bbc6d3;border-radius:6px}button{padding:11px 15px;background:#2259ac;color:white;border:0;border-radius:6px}
+li{padding:10px;border-bottom:1px solid #ddd}.note{color:#64748b;font-size:14px}
+</style></head><body><div class="app"><h1>Full Stack Product Manager</h1><p>React-style interface + API-style operations + local database storage.</p>
+<form id="form"><input id="product" placeholder="Product name" required><button>Add Product</button></form><h3>Saved Products</h3><ul id="list"></ul><button id="clear" type="button">Clear All</button><p class="note" id="status">Data is stored in this browser using localStorage.</p></div>
+<script>
+const key='fullStackProductsDemo';let products=JSON.parse(localStorage.getItem(key)||'["Laptop","Mouse"]');
+function save(){localStorage.setItem(key,JSON.stringify(products));render();}
+function render(){document.getElementById('list').innerHTML='';products.forEach((p,i)=>{let li=document.createElement('li');li.textContent=p+' ';let b=document.createElement('button');b.textContent='Delete';b.onclick=()=>{products.splice(i,1);save();};li.append(b);document.getElementById('list').append(li);});}
+document.getElementById('form').onsubmit=e=>{e.preventDefault();products.push(document.getElementById('product').value.trim());e.target.reset();save();document.getElementById('status').textContent='API operation simulated: product saved to localStorage.';};
+document.getElementById('clear').onclick=()=>{products=[];save();};render();
+</script></body></html>

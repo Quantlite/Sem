@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>To-Do List</title><style>
+body{font:16px Arial;background:#eef2f8;margin:0;padding:35px}.app{max-width:550px;margin:auto;background:white;padding:25px;border-radius:14px;box-shadow:0 5px 22px #0001}
+h1{margin-top:0;color:#213b65}form{display:flex;gap:8px}input{flex:1;padding:12px;border:1px solid #bbc6d5;border-radius:7px}
+button{padding:11px 15px;border:0;border-radius:7px;background:#245bb5;color:white;cursor:pointer}
+ul{padding:0;list-style:none}li{display:flex;align-items:center;gap:10px;padding:12px 4px;border-bottom:1px solid #e6eaf0}
+li span{flex:1}li.done span{text-decoration:line-through;color:#8993a3}.delete{background:#d94848}
+</style></head><body><div class="app"><h1>My To-Do List</h1>
+<form id="form"><input id="task" placeholder="Enter a task..." required><button>Add</button></form>
+<ul id="list"></ul><p id="count">0 tasks</p></div>
+<script>
+const form=document.getElementById('form'),input=document.getElementById('task'),list=document.getElementById('list'),count=document.getElementById('count');
+function update(){count.textContent=list.children.length+' tasks';}
+form.addEventListener('submit',e=>{e.preventDefault();const li=document.createElement('li'),check=document.createElement('input'),span=document.createElement('span'),del=document.createElement('button');check.type='checkbox';span.textContent=input.value;del.textContent='Delete';del.className='delete';check.onchange=()=>li.classList.toggle('done',check.checked);del.onclick=()=>{li.remove();update();};li.append(check,span,del);list.append(li);input.value='';update();});
+</script></body></html>

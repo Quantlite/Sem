@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>React Single Page Application</title><style>
+body{font:16px Arial;margin:0;background:#f2f5fa;color:#1c2b42}nav{background:#1e3a65;padding:18px;text-align:center}
+nav button{background:transparent;border:1px solid white;color:white;padding:9px 16px;margin:4px;border-radius:6px;cursor:pointer}
+#root{max-width:800px;margin:35px auto;padding:25px;background:white;border-radius:12px;min-height:240px}
+</style>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script></head>
+<body><nav id="nav"></nav><div id="root"></div>
+<script type="text/babel">
+const pages={Home:<><h1>Home</h1><p>Welcome to the React Single Page Application.</p></>,About:<><h1>About</h1><p>This page is rendered by React without reloading the browser.</p></>,Services:<><h1>Services</h1><ul><li>Web Development</li><li>UI Design</li><li>Application Support</li></ul></>,Contact:<><h1>Contact</h1><p>Email: contact@example.com</p></>};
+function App(){const [page,setPage]=React.useState('Home');return <><div>{Object.keys(pages).map(p=><button onClick={()=>setPage(p)}>{p}</button>)}</div><main>{pages[page]}</main></>}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+const navRoot=ReactDOM.createRoot(document.getElementById('nav'));
+navRoot.render(<App/>);
+</script></body></html>

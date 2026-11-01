@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Weather Dashboard</title><style>
+body{font:16px Arial;background:linear-gradient(135deg,#c8e5ff,#f1f6ff);min-height:100vh;margin:0;padding:35px;box-sizing:border-box}
+.card{max-width:520px;margin:auto;background:white;padding:26px;border-radius:18px;box-shadow:0 8px 30px #3456}
+form{display:flex;gap:8px}input{flex:1;padding:12px;border:1px solid #bbc8d7;border-radius:8px}button{background:#2461ad;color:white;border:0;border-radius:8px;padding:12px}
+.weather{text-align:center;padding:25px}.temp{font-size:58px;font-weight:bold;color:#21528a}.muted{color:#61748a}
+</style></head><body><div class="card"><h1>Weather Dashboard</h1><form id="search"><input id="city" placeholder="Enter city name" value="Chennai"><button>Search</button></form><div class="weather"><h2 id="place">Chennai</h2><div class="temp" id="temp">32°C</div><h3 id="condition">Partly Cloudy</h3><p class="muted" id="details">Humidity: 68% · Wind: 14 km/h</p></div><p class="muted">Demo weather data is used so the page works immediately without an API key.</p></div>
+<script>
+const data={chennai:[32,'Partly Cloudy',68,14],coimbatore:[29,'Sunny',54,10],mumbai:[30,'Cloudy',72,18],delhi:[27,'Clear',42,8],london:[14,'Light Rain',81,12],newyork:[19,'Cloudy',61,15]};
+document.getElementById('search').addEventListener('submit',e=>{e.preventDefault();let city=document.getElementById('city').value.trim(),d=data[city.toLowerCase()];document.getElementById('place').textContent=city||'Unknown';if(d){document.getElementById('temp').textContent=d[0]+'°C';document.getElementById('condition').textContent=d[1];document.getElementById('details').textContent='Humidity: '+d[2]+'% · Wind: '+d[3]+' km/h';}else{document.getElementById('temp').textContent='--';document.getElementById('condition').textContent='No demo data for this city';document.getElementById('details').textContent='Try Chennai, Coimbatore, Mumbai, Delhi, London or New York.';}});
+</script></body></html>

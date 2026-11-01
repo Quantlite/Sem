@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>REST API CRUD Demo</title><style>
+body{font:16px Arial;background:#f1f4f9;padding:30px}.box{max-width:700px;margin:auto;background:white;padding:24px;border-radius:12px}
+form{display:flex;gap:8px}input{flex:1;padding:11px;border:1px solid #bcc6d3;border-radius:6px}button{padding:10px 14px;background:#245bb1;color:white;border:0;border-radius:6px;cursor:pointer}
+.item{padding:12px;border-bottom:1px solid #ddd;display:flex;justify-content:space-between;align-items:center}.del{background:#c33}
+#log{background:#172235;color:#b9f6ca;padding:12px;border-radius:7px;min-height:50px;white-space:pre-wrap}
+</style></head><body><div class="box"><h1>REST API – CRUD Demo</h1><p>Try creating, reading, updating and deleting records.</p>
+<form id="form"><input id="name" placeholder="Enter product name" required><button>Add (POST)</button></form><h3>Products (GET)</h3><div id="items"></div><h3>API Activity</h3><div id="log">Ready.</div></div>
+<script>
+let records=[{id:1,name:'Laptop'},{id:2,name:'Keyboard'}],next=3;
+function log(method,msg){document.getElementById('log').textContent=method+' /api/products\\n'+msg;}
+function render(){let root=document.getElementById('items');root.innerHTML='';records.forEach(r=>{let row=document.createElement('div');row.className='item';let label=document.createElement('span');label.textContent=r.id+' - '+r.name;let edit=document.createElement('button');edit.textContent='Update (PUT)';edit.onclick=()=>{let n=prompt('New name',r.name);if(n){r.name=n;render();log('PUT','Updated product '+r.id);}};let del=document.createElement('button');del.textContent='Delete';del.className='del';del.onclick=()=>{records=records.filter(x=>x.id!==r.id);render();log('DELETE','Deleted product '+r.id);};row.append(label,edit,del);root.append(row);});}
+document.getElementById('form').onsubmit=e=>{e.preventDefault();let name=document.getElementById('name').value;records.push({id:next++,name});e.target.reset();render();log('POST','Created product. Status: 201 Created');};
+render();
+</script></body></html>

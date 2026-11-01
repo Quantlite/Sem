@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Form Validation</title><style>
+body{font:16px Arial;background:#eef3f8;padding:30px}.box{max-width:460px;margin:auto;background:white;padding:26px;border-radius:12px}
+label{display:block;margin-top:14px}input{width:100%;padding:11px;margin-top:6px;border:1px solid #bac5d3;border-radius:6px;box-sizing:border-box}
+button{margin-top:20px;padding:12px 18px;background:#235bb4;color:white;border:0;border-radius:6px}
+#error{color:#c62828}#success{color:#187b42}
+</style></head><body><div class="box"><h1>Registration Form</h1>
+<form id="register" novalidate>
+<label>Name<input id="name" required></label>
+<label>Email<input id="email" type="text" required></label>
+<label>Password<input id="password" type="password" required></label>
+<label>Phone<input id="phone" type="text" required></label>
+<button>Register</button></form><p id="error"></p><p id="success"></p></div>
+<script>
+document.getElementById('register').addEventListener('submit',e=>{
+e.preventDefault();let name=document.getElementById('name').value.trim(),email=document.getElementById('email').value.trim(),pass=document.getElementById('password').value,phone=document.getElementById('phone').value.trim();
+let errors=[];if(!/^[A-Za-z ]{2,}$/.test(name))errors.push('Enter a valid name.');if(!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email))errors.push('Enter a valid email.');if(!/^(?=.*[A-Za-z])(?=.*\\d).{8,}$/.test(pass))errors.push('Password must be 8+ characters with a letter and number.');if(!/^[0-9]{10}$/.test(phone))errors.push('Phone number must contain 10 digits.');
+document.getElementById('error').textContent=errors.join(' ');document.getElementById('success').textContent=errors.length?'':'Registration successful!';
+});
+</script></body></html>
